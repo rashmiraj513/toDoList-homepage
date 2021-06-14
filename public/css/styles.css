@@ -385,7 +385,7 @@ hr {
 }
 
 .carousel-control-next-icon, .carousel-control-prev-icon {
-    margin-top: 40rem;
+    margin-top: 8rem;
 }
 
 @media (max-width: 992px) {
@@ -412,7 +412,7 @@ hr {
     }
 
     .carousel-control-next-icon, .carousel-control-prev-icon {
-        margin-top: 27rem;
+        margin-top: 5rem;
     }
 
     .carousel-control-prev-icon {
