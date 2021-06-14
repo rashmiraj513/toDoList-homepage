@@ -1,7 +1,29 @@
 <%- include("partials/header") %> 
-<section id="header" class="header h-header">
+<header class="h-header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="/">NOTETAKER.</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav w-100">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#features">Features</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/signup">Sign Up</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/login">Log In</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
 
-</section>
+<!-- <section id="header" class="header target-section">
+
+</section> -->
 
 <section id="about" class="s-about target-section">
     <div class="container">
@@ -133,43 +155,62 @@
     </div>
 </section>
 
-<!-- <section id="testimonials" class="target-section s-testimonials">
+<section id="testimonials" class="s-testimonials target-section">
     <div class="container">
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="2000" data-pause="hover">
+        <h1 class="display-2">See what our customers say!</h1>
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000" data-bs-pause="hover">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
+            </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <div class="carousel-div">
-                        <h6>"Best app for note taking in my point of view and also very great for sharing a note to your team or your partner. Thanks NoteTaker!"</h6>
-                        <img src="img/abhijeet.jpg" alt="abhijeet-img">
-                        <p class="paragraph-center">Abhijeet Singh Yadav</p>
-                    </div>
+                    <img src="img/kallu.jpg" class="d-block w-100" alt="Kanhaiya Laxmi Sharma">
+                    <h3 class="display-3">Kanhaiya Laxmi Sharma</h3>
+                    <p class="para-size">Best web application for note taking purpose according to me. You can also use this web application without any hesitation because this app guarantees that your data & all your secret is going to be safe with them. Finally, Thanks a lot, NoteTaker!</p>
                 </div>
                 <div class="carousel-item">
-                    <div class="carousel-div">
-                        <h6>"I have visited this place with my friends. All enjoyed here very much & the rooms are very clean here. Our holiday trip was passed very happily with this place. Going to stay again in the same hotel if we visited again. Thanks..."</h6>
-                        <img src="img/kallu.jpg" alt="kanhaiya-img">
-                        <p class="paragraph-center">Kanhaiya Laxmi Sharma</p>
-                    </div>
+                    <img src="img/abhijeet.jpg" class="d-block w-100" alt="Abhijeet Singh Yadav">
+                    <h3 class="display-3">Abhijeet Singh Yadav</h3>
+                    <p class="para-size">Best web application for note taking purpose according to me. You can also use this web application without any hesitation because this app guarantees that your data & all your secret is going to be safe with them. Finally, Thanks a lot, NoteTaker!</p>
                 </div>
                 <div class="carousel-item">
-                    <div class="carousel-div">
-                        <h6>"Nicely-Lovely food, really enjoyed with friends. I placed order first time by seeing name with the fear how the services are going to be and we really appreciate them. Will order again and again. Thanks...</h6>
-                        <img src="img/sakchham.jpg" alt="sakchham-img">
-                        <p class="paragraph-center">Sakchham Kumar Sharma</p>
-                    </div>
+                    <img src="img/rashmi.jpg" class="d-block w-100" alt="Rashmi Raj">
+                    <h3 class="display-3">Rashmi Raj</h3>
+                    <p class="para-size">Best web application for note taking purpose according to me. You can also use this web application without any hesitation because this app guarantees that your data & all your secret is going to be safe with them. Finally, Thanks a lot, NoteTaker!</p>
                 </div>
+                <div class="carousel-item">
+                    <img src="img/lady-img.jpg" class="d-block w-100" alt="Lady Image">
+                    <h3 class="display-3">Mahi Singh</h3>
+                    <p class="para-size">Best web application for note taking purpose according to me. You can also use this web application without any hesitation because this app guarantees that your data & all your secret is going to be safe with them. Finally, Thanks a lot, NoteTaker!</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/sakchham.jpg" class="d-block w-100" alt="Sakchham Kumar Sharma">
+                    <h3 class="display-3">Sakchham Kumar Sharma</h3>
+                    <p class="para-size">Best web application for note taking purpose according to me. You can also use this web application without any hesitation because this app guarantees that your data & all your secret is going to be safe with them. Finally, Thanks a lot, NoteTaker!</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/surya.jpg" class="d-block w-100" alt="Surya Sharma">
+                    <h3 class="display-3">Surya Sharma</h3>
+                    <p class="para-size">Best web application for note taking purpose according to me. You can also use this web application without any hesitation because this app guarantees that your data & all your secret is going to be safe with them. Finally, Thanks a lot, NoteTaker!</p>
+                </div>
+                
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
     </div>
-</section> -->
+</section>
 
 <section id="footer" class="footer f-footer">
     <div class="container">
@@ -189,8 +230,8 @@
         </div>
         <div class="row align-items-center footer-bottom">
             <div class="col-lg-6 col-md-6 col-sm-6">
-                <h2 class="headlines-2">NoteTaker.</h2>
-                <p class="para-size">NoteTaker is a simple, user-friendly, secure and smart web application where you can write your notes, edit them if necessary and access them at any point of time at any where across the globe. NoteTaker is not an organization, it is created by seeing the needs of a person especially students. Basically, it is developed by a student,  for a student.</p>
+                <h2 class="headlines-2"><span class="footer-brand-border ">NoteTaker</span>.</h2>
+                <p class="para-size"><span class="footer-brand-border ">NoteTaker</span> is a simple, user-friendly, secure and smart web application where you can write your notes, edit them if necessary and access them at any point of time at any where across the globe. NoteTaker is not an organization, it is created by seeing the needs of a person especially students. Basically, it is developed by a student,  for a student.</p>
                 <div class="footer-social">
                     <li><a href="https://facebook.com"><i class="fab fa-facebook-f"></i></a></li>
                     <li><a href="https://twitter.com"><i class="fab fa-twitter"></i></a></li>

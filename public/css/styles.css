@@ -25,6 +25,12 @@
     background-color: pink;
 }
 
+/* Header Selectors */
+
+.navbar-brand {
+    padding: 0 2% !important;
+}
+
 /* Element Selectors */
 
 body {
@@ -62,6 +68,10 @@ body {
 
 .brand-border {
     border-bottom: 3px inset #000;
+}
+
+.footer-brand-border {
+    border-bottom: 3px inset #00a650;
 }
 
 .align-center {
@@ -125,7 +135,7 @@ body {
         padding: 0;
     }
 
-    .display-3 {
+    #about .display-3 {
         font-size: 1rem !important;
         width: 60%;
         display: block;
@@ -189,7 +199,7 @@ body {
 
 .features-para {
     font-family: "Roboto", sans-serif;
-    width: 70%;
+    width: 90%;
     color: rgba(0, 0, 0, 0.4);
     font-size: 1.5rem;
     line-height: 1.5;
@@ -199,7 +209,9 @@ body {
 
 hr {
     width: 30%;
-    height: 10px;
+    display: block;
+    margin: auto;
+    height: 20px;
     background: #00a650;
 }
 
@@ -212,7 +224,7 @@ hr {
 
     .features-para {
         font-size: 0.6rem !important;
-        padding-bottom: 0;
+        padding-bottom: 2rem !important;
         width: 100%;
     }
 
@@ -222,6 +234,10 @@ hr {
 
     .feature-logo {
         font-size: 2.5rem;
+    }
+
+    hr {
+        display: none;
     }
 
     .about-item {
@@ -264,13 +280,73 @@ hr {
     color: rgba(255, 255, 255, 0.7);
 }
 
-.carousel-div img {
-    border-radius: 50%;
-    width: 300px;
-    height: 300px;
+.carousel-item img {
+    width: auto;
+    border-radius: 100%;
+    max-width: 300px;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    border: 3px solid #00a650;
+}
+
+#testimonials .display-2 {
+    font-size: 3.5rem;
+    text-align: center;
+    color: #00a650;
+}
+
+.carousel-item h3 {
+    color: #00a650;
+    padding: 1rem;
+}
+
+.carousel-item p {
+    color: rgba(255, 255, 255, 0.5);
+    width: 60%;
+    text-align: center;
     display: block;
     margin: auto;
-    padding-bottom: 5%;
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon {
+    margin-top: 40rem;
+}
+
+@media (max-width: 992px) {
+    .carousel-item img {
+        max-width: 200px;
+    }
+
+    #testimonials .display-3 {
+        font-size: 1.4rem !important;
+        width: 100%;
+    }
+
+    #testimonials .para-size {
+        width: 80%;
+        text-align: center;
+        font-size: 0.6rem !important;
+        margin-bottom: 3rem;
+    }
+
+    #testimonials .display-2 {
+        text-align: center;
+        color: #00a650;
+        margin-bottom: 3% !important;
+    }
+
+    .carousel-control-next-icon, .carousel-control-prev-icon {
+        margin-top: 27rem;
+    }
+
+    .carousel-control-prev-icon {
+        margin-right: 2rem;
+    }
+
+    .carousel-control-next-icon {
+        margin-left: 2rem;
+    }
 }
 
 .feature-logo {
@@ -329,6 +405,16 @@ hr {
     padding-bottom: 3%;
 }
 
+/* Footer Subscribe */
+
+.footer-subscribe .subscribe-form {
+    padding-left: 10%;
+    position: relative;
+    width: 100%;
+}
+
+/* For Mobiles */
+
 @media (max-width: 992px) {
     #footer .container .display-2 {
         text-align: center;
@@ -352,18 +438,19 @@ hr {
 
     #user-email {
         padding: 5% !important;
-        height: 4rem !important;
+        height: 2rem !important;
     }
 
     #user-submit {
         padding: 0 !important;
         margin-bottom: 2% !important;
-        letter-spacing: 0;
-        height: 4rem !important;
+        height: 2rem !important;
+        line-height: 0.9rem !important;
     }
 
     #user-form input[type="submit"] {
         font-size: 10px !important;
+        letter-spacing: 2px !important;
         width: 20% !important;
     }
 
@@ -379,14 +466,12 @@ hr {
     .para-href {
         font-size: 1.2rem !important;
     }
-}
 
-/* Footer Subscribe */
-
-.footer-subscribe .subscribe-form {
-    padding-left: 10%;
-    position: relative;
-    width: 100%;
+    .footer-subscribe .subscribe-form {
+        padding: 0 !important;
+        position: relative;
+        width: 100%;
+    }
 }
   
 .footer-subscribe #user-form {
