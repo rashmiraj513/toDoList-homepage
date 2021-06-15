@@ -1,4 +1,5 @@
 <%- include("partials/header") %> 
+
 <header class="h-header">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
@@ -237,7 +238,7 @@
             </div>
             <div class="col-lg-6 col-sm-6 col-md-6 footer-subscribe">
                 <div class="subscribe-form">
-                    <form action="/" method="post" id="user-form">
+                    <form action="/mails" method="post" id="user-form">
                         <input type="email" name="userEmail" id="user-email" placeholder="Email Address">
                         <input type="submit" name="subscribe" id="user-submit" value="Sign Up">
                     </form>
@@ -259,9 +260,10 @@
             </div>
         </div>
         <div class="footer-last">
-            <p>Copyright © 2021 All rights reserved | This website is made with <i class="fas fa-heart social-icon"></i> and <i class="fas fa-code social-icon"></i>.</p>
+            <p>Copyright © <script>document.write(new Date().getFullYear())</script> All rights reserved | This website is made with <i class="fas fa-heart social-icon"></i> and <i class="fas fa-code social-icon"></i>.</p>
         </div>
         <div class="go-top link-is-visible"></div>
     </div>
 </section>
+
 <%- include("partials/footer") %> 

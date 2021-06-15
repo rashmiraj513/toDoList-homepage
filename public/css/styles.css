@@ -735,3 +735,144 @@ input {
     transition: 0.5s;
     cursor: grab;
 }
+
+/* For login.ejs & signup.ejs file */
+
+#login {
+    background-color: #fff7f3;
+    font-family: "IBM Sans Serif", serif;
+}
+
+#login .login-main {
+    width: 35%;
+    background-color: #fff;
+    display: block;
+    margin: auto;
+    padding-top: 3%;
+    padding-bottom: 5%;
+}
+
+.minimal-frame {
+    width: 80%;
+    display: block;
+    margin: auto;
+}
+
+.minimal-frame img {
+    display: block;
+    margin: auto;
+    width: 100px;
+}
+
+.login-heading {
+    font-family: 'Josefin Sans', serif;
+    font-size: 3rem;
+    text-align: center;
+    color: #000;
+    font-weight: 600;
+    margin: 0 !important;
+    user-select: none;
+}
+
+.login-para {
+    font-family: "Roboto", serif;
+    text-align: center;
+    color: #000;
+    font-size: 1rem;
+    padding: 1rem;
+}
+
+.google-logo {
+    padding-right: 4%;
+}
+
+.login-seperate {
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 1rem 0;
+    color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    text-align: center;
+}
+
+.login-seperate::before, .login-seperate::after {
+    background-color: rgba(0, 0, 0, 0.4);
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+}
+
+.login-seperate::before {
+    right: 0.5em;
+    margin-left: -50%;
+}
+
+.login-seperate::after {
+    left: 0.5em;
+    margin-right: -50%;
+}
+
+.login-footer {
+    text-align: center;
+    font-family: "Roboto", serif;
+}
+
+.login-display {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-top: 2rem !important;
+}
+
+.minimal-frame a {
+    text-align: center;
+}
+
+.login-href {
+    color: #00a650;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.login-href:hover, .login-href:active {
+    color: #0d6efd;
+    transition: 0.5s;
+}
+
+.policy-footer {
+    color: rgba(0, 0, 0, 0.5);
+    padding-top: 5%;
+    line-height: 1.4;
+}
+
+.policy-footer a {
+    color: #00a650;
+    text-decoration: none;
+}
+
+.policy-footer a:hover, .policy-footer a:active {
+    color: #0d6efd;
+    transition: 0.5s;
+}
+
+/* For Mobiles  */
+@media(max-width: 992px) {
+
+    #login .login-main {
+        width: 100% !important;
+    }
+
+    .login-display {
+        font-size: 1.3rem !important;
+    }
+
+    .minimal-frame button {
+        font-size: 1.1rem !important;
+    }
+
+    .login-para {
+        font-size: 0.9rem;
+    }
+}

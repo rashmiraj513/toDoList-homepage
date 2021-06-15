@@ -15,6 +15,18 @@ main().catch(console.error);
 
 app.get("/", function(req, res) {
     res.render("home");
+});
+
+app.get("/login", function(req, res) {
+    res.render("login");
+});
+
+app.get("/signup", function(req, res) {
+    res.render("signup");
+})
+
+app.post("/mails", function(req, res) {
+    res.send("Mails post is in process!");
 })
 
 app.listen(process.env.PORT || 3000, function() {
