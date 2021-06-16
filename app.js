@@ -4,6 +4,22 @@ const passport = require("passport");
 const bcrypt = require("bcrypt");
 // database connection module...
 const main = require("./connection/db");
+// user module file...
+const createdModule = require("./models/model");
+
+
+// user module...
+// const userModule = createdModule.user;
+
+// mail module...
+const mailModule = createdModule.mail;
+
+const newMail = new mailModule({
+    mail: "rashmiraj7877@gmail.com"
+});
+
+console.log(newMail);
+
 
 const app = express();
 app.use(express.urlencoded({extended: true}));

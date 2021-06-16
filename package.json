@@ -19,6 +19,8 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "mongodb": "^3.6.9",
-    "passport": "^0.4.1"
+    "mongoose": "^5.12.13",
+    "passport": "^0.4.1",
+    "session": "^0.1.0"
   }
 }

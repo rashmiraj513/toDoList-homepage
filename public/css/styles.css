@@ -95,7 +95,7 @@ body {
     height: auto;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 426px) {
 
     #home {
         padding-bottom: 7%;
@@ -103,7 +103,7 @@ body {
 
     #home .display-1 {
         margin-top: 3rem !important;
-        font-size: 2rem !important;
+        font-size: 2.5rem !important;
         text-align: center;
     }
 
@@ -116,6 +116,44 @@ body {
         display: none;
     }
 
+}
+
+@media (min-width: 427px) and (max-width: 1023px) {
+
+    #home {
+        padding-bottom: 7%;
+    }
+
+    #home .display-1 {
+        margin-top: 3rem !important;
+        font-size: 3.4rem !important;
+        text-align: center;
+    }
+
+    #home .home-para {
+        font-size: 1.8rem !important;
+        text-align: center;
+    }
+
+    #home img {
+        display: none;
+    }
+
+}
+
+@media (min-width: 1024px) and (max-width: 1400px) {
+    #home img {
+        margin-top: 5rem !important;
+        width: 98%;
+    }
+
+    #home .display-1 {
+        font-size: 3rem !important;
+    }
+
+    #home .home-para {
+        font-size: 1.3rem !important;
+    }
 }
 
 /* Section Header */
@@ -223,17 +261,6 @@ body {
 /* Working Section */
 
 #working .about-item h3 span, #features .about-item h3 span {
-    text-align: left;
-    display: block;
-    height: 40px;
-    width: 40px;
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.03);
-    color: #00a650;
-    border-radius: 50%;
-}
-
-#working .about-item h3 span, #features .about-item h3 span {
     display: block;
     font-family: "IBM Plex Sans", sans-serif;
     font-size: 1.5rem;
@@ -242,6 +269,10 @@ body {
     border: 5px solid #00a650;
     border-radius: 50%;
     position: absolute;
+    height: 38px;
+    width: 38px;
+    background-color: rgba(255, 255, 255, 0.03);
+    color: #00a650;
 }
 
 #working .about-item p, #features .about-item p {
@@ -257,9 +288,9 @@ body {
 
     .about-item h3 span {
         font-size: 13px !important;
-        height: 20px !important;
-        width: 20px !important;
-        border: 1px solid #00a650 !important;
+        height: 19px !important;
+        width: 19px !important;
+        border: 2px solid #00a650 !important;
         text-align: center !important;
         display: block !important;
         margin: auto !important;
