@@ -4,6 +4,10 @@
   Version: 1.0.0
 */
 
+* {
+    -webkit-user-drag: none;
+}
+
 :root {
     --body-color: #000;
     --bg-color: #121619;
@@ -520,65 +524,6 @@ hr {
 }
 
 /* For Mobiles */
-
-@media (max-width: 992px) {
-    #footer .container .display-2 {
-        text-align: center;
-        padding-top: 4%;
-        font-size: 2rem !important;
-    }
-
-    #footer .container .lead {
-        text-align: center;
-        font-size: 1rem !important;
-    }
-
-    .footer-bottom .headlines-2 {
-        text-align: center;
-    }
-
-    .footer-bottom .para-size {
-        text-align: center;
-        font-size: 0.8rem !important;
-    }
-
-    #user-email {
-        padding: 5% !important;
-        height: 2rem !important;
-    }
-
-    #user-submit {
-        padding: 0 !important;
-        margin-bottom: 2% !important;
-        height: 2rem !important;
-        line-height: 0.9rem !important;
-    }
-
-    #user-form input[type="submit"] {
-        font-size: 10px !important;
-        letter-spacing: 2px !important;
-        width: 20% !important;
-    }
-
-    .footer-social {
-        text-align: center;
-    }
-
-    .footer-last {
-        font-size: 0.8rem !important;
-        line-height: 1.5;
-    }
-
-    .para-href {
-        font-size: 1.2rem !important;
-    }
-
-    .footer-subscribe .subscribe-form {
-        padding: 0 !important;
-        position: relative;
-        width: 100%;
-    }
-}
   
 .footer-subscribe #user-form {
     width: 100%;
@@ -590,92 +535,23 @@ hr {
   
 .footer-subscribe #user-form input[type="email"] {
     width: 100%;
-    height: 4rem;
+    max-height: 3rem;
     font-size: 1rem;
     line-height: 3.2rem;
     padding: 1.6rem 140px 1.6rem 32px;
     background-color: rgba(255, 255, 255, 0.03);
     color: white;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     border: none;
     border-radius: 5px;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
 
-input[type="email"]:hover, input[type="email"]:focus, input[type="email"]:active {
-    box-shadow: none;
-}
-
-input[type="email"], input[type="number"], input[type="search"], input[type="text"], input[type="tel"], input[type="url"], input[type="password"], textarea {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -ms-appearance: none;
-    -o-appearance: none;
-    appearance: none;
-}
-  
-.footer-subscribe #user-form input[type=submit] {
-    color: #FFFFFF;
-    background: #00a650;
-    border-color: #00a650;
-    margin-right: 0;
-    padding: 0 20px 0 24px;
-    height: 4rem;
-    line-height: 3.2rem;
-    border-radius: 0 5px 5px 0;
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-
-input[type="submit"], input[type="reset"], input[type="button"] {
-    display: inline-block;
-    font-family: "IBM Plex Sans", sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .4rem;
-    height: 4rem;
-    line-height: 5.6rem;
-    padding: 0 3.2rem;
-    margin: 0 .4rem 1.6rem 0;
-    border-radius: 5px;
-    color: #000;
-    text-decoration: none;
-    text-align: center;
-    white-space: nowrap;
-    cursor: pointer;
-    -webkit-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-    background-color: #c5c5c5;
-    border: .2rem solid #c5c5c5;
-}
-
-button, html [type="button"], [type="reset"], [type="submit"] {
-    -webkit-appearance: button;
-}
-
-input {
-    text-rendering: auto;
-    color: -internal-light-dark(black, white);
-    letter-spacing: normal;
-    word-spacing: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: start;
-    appearance: auto;
-    background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
-    -webkit-rtl-ordering: logical;
-    cursor: text;
-    margin: 0em;
-    padding: 1px 2px;
-    border-width: 2px;
-    border-style: inset;
-    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
-    border-image: initial;
+#user-submit {
+    display: block;
+    margin: auto;
+    margin-bottom: 5%;
 }
 
 .headlines-2 {
@@ -767,6 +643,54 @@ input {
     cursor: grab;
 }
 
+/* For Mobiles */
+
+@media (max-width: 992px) {
+    #footer .container .display-2 {
+        text-align: center;
+        padding-top: 4%;
+        font-size: 2rem !important;
+    }
+
+    #footer .container .lead {
+        text-align: center;
+        font-size: 1rem !important;
+    }
+
+    .footer-bottom .headlines-2 {
+        text-align: center;
+    }
+
+    .footer-bottom .para-size {
+        text-align: center;
+        font-size: 0.8rem !important;
+    }
+
+    #user-email {
+        padding: 5% !important;
+        height: 2rem !important;
+    }
+
+    .footer-social {
+        text-align: center;
+    }
+
+    .footer-last {
+        font-size: 0.8rem !important;
+        line-height: 1.5;
+    }
+
+    .para-href {
+        font-size: 1.2rem !important;
+    }
+
+    .footer-subscribe .subscribe-form {
+        padding: 0 !important;
+        position: relative;
+        width: 100%;
+    }
+}
+
 /* For login.ejs & signup.ejs file */
 
 #login {
@@ -803,6 +727,11 @@ input {
     font-weight: 600;
     margin: 0 !important;
     user-select: none;
+}
+
+.login-heading a {
+    text-decoration: none;
+    color: #000;
 }
 
 .login-para {
@@ -906,4 +835,11 @@ input {
     .login-para {
         font-size: 0.9rem;
     }
+}
+
+/* Rendered Body Selectors */
+
+.render-message {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
 }

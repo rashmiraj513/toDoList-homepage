@@ -8,18 +8,18 @@
     <div class="login-main container">
         <div class="minimal-frame">
             <img src="img/icon.png" alt="NoteTaker_Logo">
-            <h1 class="login-heading">NoteTaker</h1>
+            <h1 class="login-heading"><a href="/">NoteTaker</a></h1>
             <p class="login-para">Remember everything securely.</p>
             <div class="d-grid gap-2">
                 <button class="btn btn-lg btn-outline-success"><i class="fab fa-google google-logo"></i>Continue With Google</button>
             </div>
             <p class="login-seperate">or</p>
-            <form>
+            <form method="POST" action="/login">
                 <div class="mb-3">
-                    <input type="email" class="form-control" name="userEmail" placeholder="Email Address" autocomplete="off" required>
+                    <input type="email" class="form-control" name="username" placeholder="Email Address" autocomplete="off" required>
                 </div>
                 <div class="mb-3">
-                  <input type="password" class="form-control" placeholder="Password" name="userPassword" autocomplete="off" required>
+                  <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off" required>
                 </div>
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary btn-lg">Continue</button>
@@ -28,7 +28,7 @@
             <div class="login-footer">
                 <h1 class="login-display">Don't have an account?</h1>
                 <a href="/signup" class="login-href">Create Account Here!</a>
-                <p class="policy-footer">By clicking on continue, you are agreeing to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy.</a></p>
+                <p class="policy-footer">By clicking on continue, you are agreeing to our <a href="/terms_service">Terms of Service</a> and <a href="/privacy_policy">Privacy Policy.</a></p>
                 <p class="policy-footer">Copyright © <script>document.write(new Date().getFullYear())</script> NoteTaker | All rights reserved.</p>
             </div>
         </div>

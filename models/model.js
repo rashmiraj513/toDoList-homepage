@@ -8,14 +8,9 @@ const userSchema = new mongoose.Schema({
     googleId: String
 });
 
-const User = new mongoose.model("User", userSchema);
-
 const emailSchema = new mongoose.Schema({
     mail: String
 })
 
-
-const Mail = new mongoose.model("Mail", emailSchema);
-
-exports.user = User;
-exports.mail = Mail;
+exports.user = userSchema;
+exports.mail = emailSchema;

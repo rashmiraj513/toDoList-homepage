@@ -1,36 +1,57 @@
+require("dotenv").config();
 const express = require("express");
 const ejs = require("ejs");
+const mongoose = require("mongoose");
+const session = require("express-session");
 const passport = require("passport");
-const bcrypt = require("bcrypt");
-// database connection module...
-const main = require("./connection/db");
-// user module file...
-const createdModule = require("./models/model");
+const passportLocalMongoose = require("passport-local-mongoose");
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const findOrCreate = require("mongoose-findorcreate");
+// exported modules...
+const db = require("./connection/config");          // dbConnection Module
+const schemas = require("./models/model");          // Schema Module
 
-
-// user module...
-// const userModule = createdModule.user;
-
-// mail module...
-const mailModule = createdModule.mail;
-
-const newMail = new mailModule({
-    mail: "rashmiraj7877@gmail.com"
-});
-
-console.log(newMail);
-
+const userSchema = schemas.user;
+const mailSchema = schemas.mail;
 
 const app = express();
-app.use(express.urlencoded({extended: true}));
-app.use(express.static("public"));
-app.set('view engine', 'ejs');
 
-// database connection module...
-main().catch(console.error);
+app.use(express.static("public"));
+app.use(express.urlencoded({extended: true}));
+app.set('view engine', 'ejs');
+app.use(session ({
+    secret: "Our Truth.",
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(findOrCreate);
+
+// User and Mail models...
+const User = new mongoose.model("User", userSchema);
+const Mail = new mongoose.model("Mail", mailSchema);
+
+passport.use(User.createStrategy());
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+  
+passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+      done(err, user);
+    });
+});
+
+// Variables for render messages...
+let successMessage = "";
 
 app.get("/", function(req, res) {
-    res.render("home");
+    res.render("home", {message: successMessage});
 });
 
 app.get("/login", function(req, res) {
@@ -39,12 +60,76 @@ app.get("/login", function(req, res) {
 
 app.get("/signup", function(req, res) {
     res.render("signup");
-})
+});
+
+app.get("/dashboard", function(req, res) {
+    if(req.isAuthenticated()) {
+        res.render("dashboard");
+    } else {
+        res.redirect("/login");
+    }
+});
+
+app.get("/logout", function(req, res) {
+    req.logout();
+    res.redirect("/login");
+});
+
+app.post("/signup", function(req, res) {
+    const username = req.body.username;
+    const password = req.body.password;
+    User.register({username: username}, password, function(err, user) {
+        if(err) {
+            console.log(err);
+            res.redirect("/signup");
+        } else {
+            passport.authenticate("local") (req, res, function() {
+                res.redirect("/dashboard");
+            });
+        }
+    });
+});
+
+app.post("/login", function(req, res) {
+    const user = new User({
+        username: req.body.username,
+        password: req.body.password
+    });
+    req.login(user, function(err) {
+        if(err) {
+            console.log(err);
+        } else {
+            passport.authenticate("local") (req, res, function() {
+                res.redirect("/dashboard");
+            });
+        }
+    });
+});
 
 app.post("/mails", function(req, res) {
-    res.send("Mails post is in process!");
-})
+    Mail.findOne({mail: req.body.userEmail}, function(err, foundEmail) {
+        if(err) {
+            console.log(err);
+        } else {
+            if(foundEmail) {
+                successMessage = "This Email is already in our database.";
+                res.redirect("/");
+            } else {
+                const newMail = new Mail({mail: req.body.userEmail});
+                newMail.save(function(err) {
+                    if(err) {
+                        console.log(err);
+                    } else {
+                        successMessage = "Added successfully in our database!";
+                        res.redirect("/");
+                    }
+                });
+            }
+        }
+    });
+});
 
-app.listen(process.env.PORT || 3000, function() {
-    console.log("Server is started on port 3000.");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, function(req, res) {
+    console.log(`Server is started at ${PORT}.`);
 })
