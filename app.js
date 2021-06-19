@@ -50,18 +50,24 @@ passport.deserializeUser(function(id, done) {
 // Variables for render messages...
 let successMessage = "";
 let messages = "";
-let passwordMessage = "";
 
 app.get("/", function(req, res) {
     res.render("home", {message: successMessage});
 });
 
 app.get("/login", function(req, res) {
-    res.render("login", {errorMessages: messages, passwordErrorMessage: passwordMessage});
+    res.render("login", {errorMessages: messages});
+});
+
+app.get("/privacy_policy", function(req, res) {
+    res.render("privacy_policy");
+
+app.get("/terms_of_use", function(req, res) {
+    res.render("terms_service");
 });
 
 app.get("/signup", function(req, res) {
-    res.render("signup", {errorMessages: messages, passwordErrorMessage: passwordMessage});
+    res.render("signup", {errorMessages: messages});
 });
 
 app.get("/dashboard", function(req, res) {
@@ -87,7 +93,8 @@ app.post("/signup", function(req, res) {
             } else {
                 if(foundRegisteredUser) {
                     messages = "Email is already registered!";
-                    res.redirect("/signup");
+                    res.render("signup", {errorMessages: messages});
+                    messages = "";
                 } else {
                     User.register({username: username}, password, function(err, user) {
                         if(err) {
@@ -103,64 +110,64 @@ app.post("/signup", function(req, res) {
             }
         });
     } else {
-        passwordMessage = "Password should be at least 6 characters long!";
-        res.redirect("/signup");
+        messages = "Password should be at least 6 characters long!";
+        res.render("signup", {errorMessages: messages});
+        messages = "";
     }
 });
 
 app.post("/login", function(req, res) {
     const username = req.body.username;
     const password = req.body.password;
-    User.findOne({username: username}, function(err, registeredUser) {
-        if(err) {
-            console.log(err);
-            res.redirect("/login")
-        } else {
-            if(registeredUser) {
-                const user = new User({
-                    username: req.body.username,
-                    password: req.body.password
-                });
-                req.login(user, function(err) {
-                    if(err) {
-                        console.log(err);
-                        res.redirect("/login");
-                    } else {
-                        passport.authenticate("local") (req, res, function() {
-                            res.redirect("/dashboard");
-                        });
-                    }
-                });
+    if(password.length >= 6) {
+        User.findOne({username: username}, function(err, registeredUser) {
+            if(err) {
+                console.log(err);
+                res.redirect("/login")
             } else {
-                messages = "Email is not registered!";
-                res.redirect("/login");
+                if(registeredUser) {
+                    const user = new User({
+                        username: req.body.username,
+                        password: req.body.password
+                    });
+                    req.login(user, function(err) {
+                        if(err) {
+                            console.log(err);
+                            res.redirect("/login");
+                        } else {
+                            passport.authenticate("local") (req, res, function(err) {
+                                if(err) {
+                                    res.send("Password is incorrect!");
+                                } else {
+                                    res.redirect("/dashboard");
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    messages = "Email is not registered!";
+                    res.render("login", {errorMessages: messages});
+                    messages = "";
+                }
             }
-        }
-    })
-    // const user = new User({
-    //     username: req.body.username,
-    //     password: req.body.password
-    // });
-    // req.login(user, function(err) {
-    //     if(err) {
-    //         console.log(err);
-    //     } else {
-    //         passport.authenticate("local") (req, res, function() {
-    //             res.redirect("/dashboard");
-    //         });
-    //     }
-    // });
+        });
+    } else {
+        messages = "Password should be at least 6 characters long!";
+        res.render("login", {errorMessages: messages});
+        messages = "";
+    }
 });
 
-app.post("/mails", function(req, res) {
+app.post("/", function(req, res) {
     Mail.findOne({mail: req.body.userEmail}, function(err, foundEmail) {
-        console.log(foundEmail);
+        // console.log(foundEmail);
         if(err) {
             console.log(err);
         } else {
             if(foundEmail) {
                 successMessage = "This Email is already in our database.";
-                res.redirect("/");
+                res.render("home", {message: successMessage});
+                successMessage = "";
             } else {
                 const newMail = new Mail({mail: req.body.userEmail});
                 newMail.save(function(err) {
@@ -168,7 +175,8 @@ app.post("/mails", function(req, res) {
                         console.log(err);
                     } else {
                         successMessage = "Added successfully in our database!";
-                        res.redirect("/");
+                        res.render("home", {message: successMessage});
+                        successMessage = "";
                     }
                 });
             }
@@ -177,6 +185,6 @@ app.post("/mails", function(req, res) {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, function(req, res) {
-    console.log(`Server is started at ${PORT}.`);
-})
+app.listen(PORT, function() {
+    console.log(`Server is started on port ${PORT}.`)}
+);
