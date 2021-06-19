@@ -61,6 +61,7 @@ app.get("/login", function(req, res) {
 
 app.get("/privacy_policy", function(req, res) {
     res.render("privacy_policy");
+});
 
 app.get("/terms_of_use", function(req, res) {
     res.render("terms_service");
