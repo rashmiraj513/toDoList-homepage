@@ -2,7 +2,7 @@
 
 <!-- Changing the title dynamically according to the page -->
 <script>
-    document.title = "Welcome Back!"
+    document.title = "Welcome Back! | NoteTaker";
 </script>
 <section id="login" class="login">
     <div class="login-main container">
@@ -15,7 +15,6 @@
             </div>
             <p class="login-seperate">or</p>
             <p class="error-text"><%= errorMessages %> </p>
-            <p class="password-error-text"><%= passwordErrorMessage %> </p>
             <form method="POST" action="/login">
                 <div class="mb-3">
                     <input type="email" class="form-control" name="username" placeholder="Email Address" autocomplete="off" required>

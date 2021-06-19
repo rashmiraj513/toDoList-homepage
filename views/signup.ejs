@@ -1,8 +1,8 @@
 <%- include("partials/header") %> 
 
 <script>
-    document.title = "Create a NoteTaker Account!"
-    </script>
+    document.title = "Create a NoteTaker Account! | NoteTaker";
+</script>
 
 <section id="login" class="login">
     <div class="login-main container">
@@ -15,7 +15,6 @@
             </div>
             <p class="login-seperate">or</p>
             <p class="error-text"><%= errorMessages %> </p>
-            <p class="password-error-text"><%= passwordErrorMessage %> </p>
             <form action="/signup" method="POST">
                 <div class="mb-3">
                     <input type="email" class="form-control" name="username" placeholder="Email Address" required autocomplete="off">

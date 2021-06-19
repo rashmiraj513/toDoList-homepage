@@ -1,28 +1,4 @@
-<%- include("partials/header") %> 
-
-<header class="h-header">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">NOTETAKER.</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#features">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/signup">Sign Up</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Log In</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
+<%- include("partials/navbar") %> 
 
 <section id="home" class="home">
     <div class="container">
@@ -238,11 +214,11 @@
             </div>
             <div class="col-lg-6 col-sm-6 col-md-6 footer-subscribe">
                 <div class="subscribe-form">
-                    <form action="/mails" method="post" id="user-form" class="form-subscription">
+                    <form action="/" method="post" id="user-form" class="form-subscription">
                         <input type="email" name="userEmail" id="user-email" placeholder="Email Address" required autocomplete="off">
                         <input type="submit" name="subscribe" id="user-submit" class="btn btn-outline-success btn-lg" value="Subscribe">
                     </form>
-                    <h6 class="render-message"><%= message %> </h6>
+                    <h6 class="error-text"><%= message %> </h6>
                 </div>
             </div>
         </div>
@@ -250,20 +226,33 @@
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <h2 class="headlines-2"><span class="footer-brand-border ">NoteTaker</span>.</h2>
                 <p class="para-size">NoteTaker is a simple, user-friendly, secure and smart web application where you can write your notes, edit them if necessary and access them at any point of time, anywhere across the globe. NoteTaker is not managed by an organization, it is created by seeing the needs of a person especially the students. Basically, it is developed by a student and for a student.</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 footer-second-button">
+                <p class="para-size">Do you have a question? Send us a word:<br><a href="mailto:toptaker@gmail.com" class="para-href">toptaker@gmail.com</a></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="footer-social">
                     <li><a href="https://facebook.com"><i class="fab fa-facebook-f"></i></a></li>
                     <li><a href="https://twitter.com"><i class="fab fa-twitter"></i></a></li>
                     <li><a href="https://instagram.com"><i class="fab fa-instagram"></i></a></li>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 footer-second-button">
-                <p class="para-size">Do you have a question? Send us a word:<br><a href="mailto:toptaker@gmail.com" class="para-href">toptaker@gmail.com</a></p>
+            <div class="col-lg-6 col-md-6 col-sm-12 align-center">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6 privacy_policy">
+                        <a href="/privacy_policy">Privacy Policy</a>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 privacy_policy">
+                        <a href="/terms_of_use">Terms of Use</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="footer-last">
             <p>Copyright © <script>document.write(new Date().getFullYear())</script> All rights reserved | This website is made with <i class="fas fa-heart social-icon"></i> and <i class="fas fa-code social-icon"></i>.</p>
         </div>
-        <div class="go-top link-is-visible"></div>
     </div>
 </section>
 
