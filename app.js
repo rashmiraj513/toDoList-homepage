@@ -131,7 +131,8 @@ app.post("/signup", function(req, res) {
                             res.redirect("/signup");
                         } else {
                             passport.authenticate("local") (req, res, function() {
-                                res.redirect("/dashboard");
+                                messages = "Sign up successfully, Please login here!";
+                                res.redirect("/login");
                             });
                         }
                     });
