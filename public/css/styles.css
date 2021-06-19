@@ -843,3 +843,15 @@ hr {
     text-align: center;
     color: rgba(255, 255, 255, 0.7);
 }
+
+.error-text {
+    text-align: center;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 1.4rem;
+}
+
+.password-error.text {
+    text-align: left;
+    color:rgba(0, 0, 0, 0.7);
+    font-size: 1rem;
+}

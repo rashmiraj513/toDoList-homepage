@@ -14,6 +14,8 @@
                 <button class="btn btn-lg btn-outline-success"><i class="fab fa-google google-logo"></i>Continue With Google</button>
             </div>
             <p class="login-seperate">or</p>
+            <p class="error-text"><%= errorMessages %> </p>
+            <p class="password-error-text"><%= passwordErrorMessage %> </p>
             <form method="POST" action="/login">
                 <div class="mb-3">
                     <input type="email" class="form-control" name="username" placeholder="Email Address" autocomplete="off" required>

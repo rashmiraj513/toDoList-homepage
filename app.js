@@ -49,17 +49,19 @@ passport.deserializeUser(function(id, done) {
 
 // Variables for render messages...
 let successMessage = "";
+let messages = "";
+let passwordMessage = "";
 
 app.get("/", function(req, res) {
     res.render("home", {message: successMessage});
 });
 
 app.get("/login", function(req, res) {
-    res.render("login");
+    res.render("login", {errorMessages: messages, passwordErrorMessage: passwordMessage});
 });
 
 app.get("/signup", function(req, res) {
-    res.render("signup");
+    res.render("signup", {errorMessages: messages, passwordErrorMessage: passwordMessage});
 });
 
 app.get("/dashboard", function(req, res) {
@@ -78,36 +80,81 @@ app.get("/logout", function(req, res) {
 app.post("/signup", function(req, res) {
     const username = req.body.username;
     const password = req.body.password;
-    User.register({username: username}, password, function(err, user) {
-        if(err) {
-            console.log(err);
-            res.redirect("/signup");
-        } else {
-            passport.authenticate("local") (req, res, function() {
-                res.redirect("/dashboard");
-            });
-        }
-    });
+    if(password.length >= 6) {
+        User.findOne({username: username}, function(err, foundRegisteredUser) {
+            if(err) {
+                console.log(err);
+            } else {
+                if(foundRegisteredUser) {
+                    messages = "Email is already registered!";
+                    res.redirect("/signup");
+                } else {
+                    User.register({username: username}, password, function(err, user) {
+                        if(err) {
+                            console.log(err);
+                            res.redirect("/signup");
+                        } else {
+                            passport.authenticate("local") (req, res, function() {
+                                res.redirect("/dashboard");
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    } else {
+        passwordMessage = "Password should be at least 6 characters long!";
+        res.redirect("/signup");
+    }
 });
 
 app.post("/login", function(req, res) {
-    const user = new User({
-        username: req.body.username,
-        password: req.body.password
-    });
-    req.login(user, function(err) {
+    const username = req.body.username;
+    const password = req.body.password;
+    User.findOne({username: username}, function(err, registeredUser) {
         if(err) {
             console.log(err);
+            res.redirect("/login")
         } else {
-            passport.authenticate("local") (req, res, function() {
-                res.redirect("/dashboard");
-            });
+            if(registeredUser) {
+                const user = new User({
+                    username: req.body.username,
+                    password: req.body.password
+                });
+                req.login(user, function(err) {
+                    if(err) {
+                        console.log(err);
+                        res.redirect("/login");
+                    } else {
+                        passport.authenticate("local") (req, res, function() {
+                            res.redirect("/dashboard");
+                        });
+                    }
+                });
+            } else {
+                messages = "Email is not registered!";
+                res.redirect("/login");
+            }
         }
-    });
+    })
+    // const user = new User({
+    //     username: req.body.username,
+    //     password: req.body.password
+    // });
+    // req.login(user, function(err) {
+    //     if(err) {
+    //         console.log(err);
+    //     } else {
+    //         passport.authenticate("local") (req, res, function() {
+    //             res.redirect("/dashboard");
+    //         });
+    //     }
+    // });
 });
 
 app.post("/mails", function(req, res) {
     Mail.findOne({mail: req.body.userEmail}, function(err, foundEmail) {
+        console.log(foundEmail);
         if(err) {
             console.log(err);
         } else {
