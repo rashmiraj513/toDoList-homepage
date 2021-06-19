@@ -47,6 +47,19 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
+passport.use(new GoogleStrategy ({
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/dashboard",
+    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+},
+function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+    return cb(err, user);
+    });
+}
+));
+
 // Variables for render messages...
 let successMessage = "";
 let messages = "";
@@ -55,9 +68,24 @@ app.get("/", function(req, res) {
     res.render("home", {message: successMessage});
 });
 
+app.get('/auth/google',
+    passport.authenticate('google', { scope: ["profile"] }
+));
+
+app.get('/auth/google/dashboard', 
+    passport.authenticate("google", { failureRedirect: "/login" }),
+    function(req, res) {
+        // Successful authentication, redirect to secrets.
+        res.redirect("/dashboard");
+});
+
 app.get("/login", function(req, res) {
     res.render("login", {errorMessages: messages});
 });
+
+app.get("/forgot_password", function(req, res) {
+    res.render("forgot_password");
+})
 
 app.get("/privacy_policy", function(req, res) {
     res.render("privacy_policy");

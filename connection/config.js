@@ -9,11 +9,10 @@ const clusterURL = process.env.URL;
 
 // database connection url...
 // const url = "mongodb+srv://" + user + ":" + password + "@" + clusterURL + db +"?retryWrites=true&w=majority";
-const url = "mongodb://localhost:27017/usersAuth";
+const url = "mongodb://localhost:27017/notesDB";
 
 // connecting to the database...
 mongoose.connect(url, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true});
 const dbConnection = mongoose.connection;
-
 
 module.exports = dbConnection;

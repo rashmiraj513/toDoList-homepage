@@ -708,11 +708,11 @@ hr {
     }
 }
 
-/* For login.ejs & signup.ejs file */
+/* For login.ejs, signup.ejs & forgot_password.ejs file */
 
 #login {
     background-color: #fff7f3;
-    font-family: "IBM Sans Serif", serif;
+    /* font-family: "IBM Sans Serif", serif; */
 }
 
 #login .login-main {
@@ -797,6 +797,21 @@ hr {
     font-family: "Roboto", serif;
 }
 
+.forgot-password {
+    padding: 2rem 0;
+}
+
+.forgot-password a {
+    text-decoration: none;
+    color: #00a650;
+    font-weight: normal;
+}
+
+.forgot-password a:hover, .forgot-password a:active {
+    color: #0d6efd;
+    transition: 0.5s;
+}
+
 .login-display {
     font-size: 1.5rem;
     font-weight: 300;
@@ -834,6 +849,25 @@ hr {
     transition: 0.5s;
 }
 
+.reset-heading {
+    font-family: "Poppins", serif;
+    text-align: center;
+}
+
+.reset-para {
+    font-size: 1rem;
+    font-family: "Poppins", serif;
+    text-align: center;
+    letter-spacing: 1px;
+    line-height: 1.5;
+    word-spacing: 3px;
+    padding-bottom: 1rem;
+}
+
+.gap-2 i {
+    padding-right: 2rem;
+}
+
 /* For Mobiles  */
 @media(max-width: 992px) {
 
@@ -845,7 +879,7 @@ hr {
         font-size: 1.3rem !important;
     }
 
-    .minimal-frame button {
+    .minimal-frame a {
         font-size: 1.1rem !important;
     }
 
@@ -892,7 +926,7 @@ hr {
     padding-bottom: 4rem;
     display: block;
     margin: auto;
-    font-weight: 400;
+    font-weight: 350;
     /* text-align: justify; */
 }
 
@@ -908,4 +942,24 @@ hr {
 
 .container-width ol li {
     padding: 0.5rem;
+}
+
+/* For Mobiles */
+
+@media(max-width: 992px) {
+    .privacy_policy {
+        width: 50%;
+        text-align: center;
+        padding: 0.5rem 0 !important;
+    }
+
+    .container-width {
+        width: 80%;
+    }
+}
+
+/* Dashboard file */
+
+#intro-navbar .nav-item {
+    padding-right: 1rem;
 }
