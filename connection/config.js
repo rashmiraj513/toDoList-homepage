@@ -9,9 +9,8 @@ const clusterURL = process.env.URL;
 
 // database connection url...
 const uri = "mongodb+srv://" + user + ":" + password + "@" + clusterURL + db +"?retryWrites=true&w=majority";
-// console.log(uri);
 
-// const url = "mongodb://localhost:27017/notesDB";
+// const uri = "mongodb://localhost:27017/notesDB";
 
 // connecting to the database...
 mongoose.connect(uri, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true});

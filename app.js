@@ -50,7 +50,8 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy ({
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: "/auth/google/dashboard",
+        callbackURL: "https://enigmatic-citadel-84452.herokuapp.com/auth/google/dashboard",
+        // callbackURL: "http://localhost:3000/auth/google/dashboard",
         userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
     function(accessToken, refreshToken, profile, cb) {
@@ -110,6 +111,30 @@ app.get("/dashboard", function(req, res) {
 app.get("/logout", function(req, res) {
     req.logout();
     res.redirect("/login");
+});
+
+app.get("/profile", function(req, res) {
+    if(req.isAuthenticated()) {
+        res.send("Profile Work in progress!");
+    } else {
+        res.redirect("/login");
+    }
+});
+
+app.get("/settings", function(req, res) {
+    if(req.isAuthenticated()) {
+        res.send("Settings Work in progress!");
+    } else {
+        res.redirect("/login");
+    }
+});
+
+app.get("/create_note", function(req, res) {
+    if(req.isAuthenticated()) {
+        res.send("Create Note Work in progress!");
+    } else {
+        res.redirect("/login");
+    }
 });
 
 app.post("/signup", function(req, res) {
@@ -212,6 +237,10 @@ app.post("/", function(req, res) {
             }
         }
     });
+});
+
+app.post("/forgot_password", function(req, res) {
+    res.send("Forgot Password Work in progress!");
 });
 
 const PORT = process.env.PORT || 3000;
