@@ -5,7 +5,10 @@ const userSchema = new mongoose.Schema({
     name: String,
     email: String,
     password: String,
-    notes: [String],
+    notes: [{
+        title: String,
+        content: String
+    }],
     googleId: String
 });
 
@@ -26,7 +29,8 @@ const profileSchema = new mongoose.Schema({
 
 // Note Schema...
 const noteSchema = new mongoose.Schema({
-
+    title: String, 
+    content: String
 });
 
 // Exporting all created Schemas

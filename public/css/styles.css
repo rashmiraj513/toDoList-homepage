@@ -199,6 +199,11 @@ body {
     color: #FFFFFF;
 }
 
+.align-button {
+    display: block;
+    margin: auto;
+}
+
 .display-1 {
     font-family: "IBM Plex Serif", serif;
     font-size: 3.5rem !important;
@@ -962,4 +967,11 @@ hr {
 
 #intro-navbar .nav-item {
     padding-right: 1rem;
+}
+
+/* create_note ejs file */
+
+.create-note {
+    padding: 7% 0;
+    font-family: "Roboto", serif;
 }

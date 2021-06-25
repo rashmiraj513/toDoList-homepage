@@ -13,6 +13,7 @@ const schemas = require("./models/model");          // Schema Module
 
 const userSchema = schemas.user;
 const mailSchema = schemas.mail;
+const noteSchema = schemas.note;
 
 const app = express();
 
@@ -34,6 +35,7 @@ userSchema.plugin(findOrCreate);
 // User and Mail models...
 const User = new mongoose.model("User", userSchema);
 const Mail = new mongoose.model("Mail", mailSchema);
+const Note = new mongoose.model("Note", noteSchema);
 
 passport.use(User.createStrategy());
 
@@ -131,10 +133,35 @@ app.get("/settings", function(req, res) {
 
 app.get("/create_note", function(req, res) {
     if(req.isAuthenticated()) {
-        res.send("Create Note Work in progress!");
+        res.render("create_note");
     } else {
         res.redirect("/login");
     }
+});
+
+app.post("/", function(req, res) {
+    Mail.findOne({mail: req.body.userEmail}, function(err, foundEmail) {
+        if(err) {
+            console.log(err);
+        } else {
+            if(foundEmail) {
+                successMessage = "This Email is already in our database.";
+                res.render("home", {message: successMessage});
+                successMessage = "";
+            } else {
+                const newMail = new Mail({mail: req.body.userEmail});
+                newMail.save(function(err) {
+                    if(err) {
+                        console.log(err);
+                    } else {
+                        successMessage = "Added successfully in our database!";
+                        res.render("home", {message: successMessage});
+                        successMessage = "";
+                    }
+                });
+            }
+        }
+    });
 });
 
 app.post("/signup", function(req, res) {
@@ -213,34 +240,28 @@ app.post("/login", function(req, res) {
     }
 });
 
-app.post("/", function(req, res) {
-    Mail.findOne({mail: req.body.userEmail}, function(err, foundEmail) {
-        // console.log(foundEmail);
+app.post("/forgot_password", function(req, res) {
+    const forgotMail = req.body.username;
+    User.findOne({username: forgotMail}, function(err, foundMail) {
         if(err) {
             console.log(err);
         } else {
-            if(foundEmail) {
-                successMessage = "This Email is already in our database.";
-                res.render("home", {message: successMessage});
-                successMessage = "";
+            if(foundMail) {
+                res.send("Mail found!");
             } else {
-                const newMail = new Mail({mail: req.body.userEmail});
-                newMail.save(function(err) {
-                    if(err) {
-                        console.log(err);
-                    } else {
-                        successMessage = "Added successfully in our database!";
-                        res.render("home", {message: successMessage});
-                        successMessage = "";
-                    }
-                });
+                res.send("Not registered yet! Please enter registered Mail!");
             }
         }
     });
 });
 
-app.post("/forgot_password", function(req, res) {
-    res.send("Forgot Password Work in progress!");
+app.post("/create_note", function(req, res) {
+    const title = req.body.noteTitle;
+    const content = req.body.noteContent;
+
+    if(req.isAuthenticated()) {
+        req.user.notes.push(title, content);
+    }
 });
 
 const PORT = process.env.PORT || 3000;
