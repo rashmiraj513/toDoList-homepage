@@ -867,10 +867,18 @@ hr {
     line-height: 1.5;
     word-spacing: 3px;
     padding-bottom: 1rem;
+    color: rgba(0, 0, 0, 0.7);
 }
 
 .gap-2 i {
     padding-right: 2rem;
+}
+
+.page-intro {
+    text-align: center;
+    padding-bottom: 1rem;
+    font-weight: 400;
+    font-family: "Roboto", serif;
 }
 
 /* For Mobiles  */
@@ -878,6 +886,11 @@ hr {
 
     .login-heading a {
         font-size: 1.8rem !important;
+    }
+
+    .reset-para {
+        font-size: 0.8rem;
+        text-align: center;
     }
 
     .btn-font {
@@ -897,7 +910,7 @@ hr {
     }
 
     .login-para {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 }
 
