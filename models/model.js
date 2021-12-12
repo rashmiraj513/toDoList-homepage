@@ -27,15 +27,8 @@ const profileSchema = new mongoose.Schema({
 
 });
 
-// Note Schema...
-const noteSchema = new mongoose.Schema({
-    title: String, 
-    content: String
-});
-
 // Exporting all created Schemas
 exports.user = userSchema;
 exports.mail = emailSchema;
 exports.settings = settingSchema;
 exports.profile = profileSchema;
-exports.note = noteSchema;

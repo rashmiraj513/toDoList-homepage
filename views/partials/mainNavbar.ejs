@@ -1,8 +1,4 @@
-<%- include("partials/mainNavbar") %> 
-<script>
-    document.title = "Create a new Note! | NoteTaker";
-</script>
-
+<%- include("header") %> 
 <section id="intro-navbar" class="intro-navbar">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
@@ -14,9 +10,6 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="/create_note">Create a Note</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/dashboard">Dashboard</a>
                     </li>
                     <li class="nav-item btn-group dropstart">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user-alt"></i></a>
@@ -38,19 +31,3 @@
         </div>
     </nav>
 </section>
-
-<section id="create-note" class="create-note">
-    <div class="container">
-        <form action="/create_note" method="post">
-            <div class="mb-3">
-                <label for="noteTitle"><h5>Title</h5></label>
-                <input type="text" name="titleContent" id="noteTitle" class="form-control" required><br>
-                <label for="noteArea"><h5>Create A Note Here!</h5></label><br>
-                <textarea name="noteContent" id="noteArea" cols="30" rows="10" class="form-control" required></textarea><br>
-                <button type="submit" class="btn btn-lg btn-outline-success align-button">Create Note</button>
-            </div>
-        </form>
-    </div>
-</section>
-
-<%- include("partials/footer") %> 

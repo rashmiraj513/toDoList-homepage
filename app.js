@@ -13,7 +13,6 @@ const schemas = require("./models/model");          // Schema Module
 
 const userSchema = schemas.user;
 const mailSchema = schemas.mail;
-const noteSchema = schemas.note;
 
 const app = express();
 
@@ -35,7 +34,6 @@ userSchema.plugin(findOrCreate);
 // User and Mail models...
 const User = new mongoose.model("User", userSchema);
 const Mail = new mongoose.model("Mail", mailSchema);
-const Note = new mongoose.model("Note", noteSchema);
 
 passport.use(User.createStrategy());
 
@@ -52,8 +50,8 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy ({
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: "https://enigmatic-citadel-84452.herokuapp.com/auth/google/dashboard",
-        // callbackURL: "http://localhost:3000/auth/google/dashboard",
+        // callbackURL: "https://enigmatic-citadel-84452.herokuapp.com/auth/google/dashboard",
+        callbackURL: "http://localhost:3000/auth/google/dashboard",
         userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
     function(accessToken, refreshToken, profile, cb) {
@@ -102,9 +100,21 @@ app.get("/signup", function(req, res) {
     res.render("signup", {errorMessages: messages});
 });
 
+app.get("/about", function(req, res) {
+    res.render("about");
+})
+
 app.get("/dashboard", function(req, res) {
     if(req.isAuthenticated()) {
-        res.render("dashboard");
+        User.find({username: req.user.username}, function(err, user) {
+            if(err) {
+                console.log(err);
+            } else {
+                const allNotes = user[0].notes;
+                res.render("dashboard", {allNote: allNotes});
+            }
+        });
+        // res.render("dashboard");
     } else {
         res.redirect("/login");
     }
@@ -136,6 +146,23 @@ app.get("/create_note", function(req, res) {
         res.render("create_note");
     } else {
         res.redirect("/login");
+    }
+});
+
+app.get("/notes/:notesID", function(req, res) {
+    const requestedNotesId = req.params.notesID;
+    if(req.isAuthenticated()) {
+        User.find({username: req.user.username}, function(err, user) {
+            if(err) {
+                console.log(err);
+            } else {
+                user[0].notes.forEach(function(element) {
+                    if(element.id === requestedNotesId) {
+                        res.render("notes", {title: element.title, content: element.content});
+                    }
+                });
+            }
+        });
     }
 });
 
@@ -221,7 +248,7 @@ app.post("/login", function(req, res) {
                                 if(err) {
                                     res.send("Password is incorrect!");
                                 } else {
-                                    res.redirect("/dashboard");
+                                    res.redirect("/create_note");
                                 }
                             });
                         }
@@ -256,11 +283,39 @@ app.post("/forgot_password", function(req, res) {
 });
 
 app.post("/create_note", function(req, res) {
-    const title = req.body.noteTitle;
+    const title = req.body.titleContent;
     const content = req.body.noteContent;
 
     if(req.isAuthenticated()) {
-        req.user.notes.push(title, content);
+        const newNote = { title: title, content: content };
+
+        User.find({username: req.user.username}, function(err, user) {
+            if(err) {
+                console.log(err);
+            } else {
+                // console.log(user[0].notes);
+                user[0].notes.push(newNote);
+                user[0].save(function(err) {
+                    if(err) {
+                        console.log(err);
+                    } else {
+                        res.redirect("/dashboard");
+                    }
+                });
+            }
+        });
+        
+        // User.findOneAndUpdate({username: 'rashmiraj7877@gmail.com'}, {$set: {notes: newNote}});
+        // User.updateMany({}, foundUser => {
+        //     console.log(foundUser);
+        // });
+        // .save(err => {
+        //     if(err) {
+        //         console.log(err);
+        //     } else {
+        //         res.redirect("/dashboard");
+        //     }
+        // });
     }
 });
 
