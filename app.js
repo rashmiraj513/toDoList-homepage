@@ -50,8 +50,8 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy ({
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
-        // callbackURL: "https://enigmatic-citadel-84452.herokuapp.com/auth/google/dashboard",
-        callbackURL: "http://localhost:3000/auth/google/dashboard",
+        callbackURL: "https://enigmatic-citadel-84452.herokuapp.com/auth/google/dashboard",
+        // callbackURL: "http://localhost:3000/auth/google/dashboard",
         userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
     function(accessToken, refreshToken, profile, cb) {
@@ -304,18 +304,6 @@ app.post("/create_note", function(req, res) {
                 });
             }
         });
-        
-        // User.findOneAndUpdate({username: 'rashmiraj7877@gmail.com'}, {$set: {notes: newNote}});
-        // User.updateMany({}, foundUser => {
-        //     console.log(foundUser);
-        // });
-        // .save(err => {
-        //     if(err) {
-        //         console.log(err);
-        //     } else {
-        //         res.redirect("/dashboard");
-        //     }
-        // });
     }
 });
 
