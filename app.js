@@ -16,7 +16,7 @@ const mailSchema = schemas.mail;
 
 const app = express();
 
-app.use(express.static("public"));
+app.use(express.static(__dirname +"/public"));
 app.use(express.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(session ({
@@ -50,7 +50,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy ({
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: "https://enigmatic-citadel-84452.herokuapp.com/auth/google/dashboard",
+        callbackURL: "https://https://glacial-refuge-24169.herokuapp.com/auth/google/dashboard",
         // callbackURL: "http://localhost:3000/auth/google/dashboard",
         userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
@@ -64,6 +64,7 @@ passport.use(new GoogleStrategy ({
 // Variables for render messages...
 let successMessage = "";
 let messages = "";
+let requestedNotesId = "";
 
 app.get("/", function(req, res) {
     res.render("home", {message: successMessage});
@@ -125,22 +126,6 @@ app.get("/logout", function(req, res) {
     res.redirect("/login");
 });
 
-app.get("/profile", function(req, res) {
-    if(req.isAuthenticated()) {
-        res.send("Profile Work in progress!");
-    } else {
-        res.redirect("/login");
-    }
-});
-
-app.get("/settings", function(req, res) {
-    if(req.isAuthenticated()) {
-        res.send("Settings Work in progress!");
-    } else {
-        res.redirect("/login");
-    }
-});
-
 app.get("/create_note", function(req, res) {
     if(req.isAuthenticated()) {
         res.render("create_note");
@@ -150,7 +135,7 @@ app.get("/create_note", function(req, res) {
 });
 
 app.get("/notes/:notesID", function(req, res) {
-    const requestedNotesId = req.params.notesID;
+    requestedNotesId = req.params.notesID;
     if(req.isAuthenticated()) {
         User.find({username: req.user.username}, function(err, user) {
             if(err) {
@@ -159,6 +144,29 @@ app.get("/notes/:notesID", function(req, res) {
                 user[0].notes.forEach(function(element) {
                     if(element.id === requestedNotesId) {
                         res.render("notes", {title: element.title, content: element.content});
+                    }
+                });
+            }
+        });
+    }
+});
+
+app.get("/delete", function(req, res) {
+    if(req.isAuthenticated()) {
+        User.find({username: req.user.username}, function(err, user) {
+            if(err) {
+                console.log(err);
+            } else {
+                user[0].notes.forEach(function(element, index) {
+                    if(element.id === requestedNotesId) {
+                        user[0].notes.splice(index, 1);
+                        user[0].save(function(err) {
+                            if(err) {
+                                console.log(err);
+                            } else {
+                                res.redirect("/dashboard");
+                            }
+                        });
                     }
                 });
             }
@@ -293,7 +301,6 @@ app.post("/create_note", function(req, res) {
             if(err) {
                 console.log(err);
             } else {
-                // console.log(user[0].notes);
                 user[0].notes.push(newNote);
                 user[0].save(function(err) {
                     if(err) {
