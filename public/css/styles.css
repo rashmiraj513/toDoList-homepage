@@ -1141,7 +1141,7 @@ hr {
     }
 
     #note-section {
-        height: 170vh;
+        height: 270vh;
     }
 
     #note-section .single-note {
@@ -1159,18 +1159,48 @@ hr {
 }
 
 #notes-display .display-title {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-family: "Poppins", serif !important;
+    letter-spacing: 2px;
+}
+
+table {
+    width: 100%;
+}
+
+.delete-note {
+    padding: 0 125%;
+}
+
+.update-note {
+    padding: 0 70%;
+}
+
+@media (max-width: 780px) {
+    .delete-note {
+        padding: 0 30%;
+    }
+
+    .update-note {
+        padding: 0 37%;
+    }
 }
 
 #notes-display .display-content {
     font-size: 1.1rem;
+    line-height: 1.5rem;
+    letter-spacing: 1.5px;
 }
 
 .icon-size {
     font-size: 1.5rem;
     color: #f2f2f2;
-    
+
+}
+
+.icon-size:hover {
+    color: #14eefc;
+    transition: 0.3s;
 }
 
 @media (max-width: 426px) {

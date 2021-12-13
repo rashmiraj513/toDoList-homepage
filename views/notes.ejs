@@ -4,21 +4,21 @@
 </script>
 <section id="notes-display" class="notes-display-class">
     <div class="container">
-        <div class="row">
-            <div class="col-sm-8 col-md-8 col-lg-8">
-                <h1 class="display-title"><%= title %></h1>
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-2">
-                <div class="delete-note">
-                    <a href="/delete"><h1><i class="fas fa-trash-alt icon-size"></i></h1></i></a>
-                </div><br>
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-2">
-                <div class="update-note">
-                    <a href="/update"><h1><i class="fas fa-pen icon-size"></i></h1></i></a>
-                </div>
-            </div>
-        </div>
+        <table>
+            <tr>
+                <th><h1 class="display-title"><%= title %></h1></th>
+                <th class="delete-row">
+                    <div class="delete-note">
+                        <a href="/delete"><h1><i class="fas fa-trash-alt icon-size"></i></h1></i></a>
+                    </div>
+                </th>
+                <th class="delete-row">
+                    <div class="update-note">
+                        <a href="/update"><h1><i class="fas fa-pen icon-size"></i></h1></i></a>
+                    </div>
+                </th>
+            </tr>
+        </table>
         <p class="display-content"><%= content %></p>
     </div>
 </section>
