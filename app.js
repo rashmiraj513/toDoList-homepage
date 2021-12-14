@@ -5,8 +5,8 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require("mongoose-findorcreate");
+
 // exported modules...
 const db = require("./connection/config");          // dbConnection Module
 const schemas = require("./models/model");          // Schema Module
@@ -47,20 +47,6 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
-passport.use(new GoogleStrategy ({
-        clientID: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: "https://https://glacial-refuge-24169.herokuapp.com/auth/google/dashboard",
-        // callbackURL: "http://localhost:3000/auth/google/dashboard",
-        userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
-    },
-    function(accessToken, refreshToken, profile, cb) {
-        User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        return cb(err, user);
-        });
-    }
-));
-
 // Variables for render messages...
 let successMessage = "";
 let messages = "";
@@ -68,17 +54,6 @@ let requestedNotesId = "";
 
 app.get("/", function(req, res) {
     res.render("home", {message: successMessage});
-});
-
-app.get('/auth/google',
-    passport.authenticate('google', { scope: ["profile"] }
-));
-
-app.get('/auth/google/dashboard', 
-    passport.authenticate("google", { failureRedirect: "/login" }),
-    function(req, res) {
-        // Successful authentication, redirect to secrets.
-        res.redirect("/dashboard");
 });
 
 app.get("/login", function(req, res) {
@@ -153,6 +128,7 @@ app.get("/notes/:notesID", function(req, res) {
 
 app.get("/delete", function(req, res) {
     if(req.isAuthenticated()) {
+        // console.log(req.user.password);
         User.find({username: req.user.username}, function(err, user) {
             if(err) {
                 console.log(err);
@@ -312,7 +288,6 @@ app.post("/create_note", function(req, res) {
 
     if(req.isAuthenticated()) {
         const newNote = { title: title, content: content };
-
         User.find({username: req.user.username}, function(err, user) {
             if(err) {
                 console.log(err);

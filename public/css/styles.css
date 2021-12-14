@@ -773,39 +773,6 @@ hr {
     padding: 1rem;
 }
 
-.google-logo {
-    padding-right: 4%;
-}
-
-.login-seperate {
-    text-align: center;
-    font-size: 1.5rem;
-    padding: 1rem 0;
-    color: rgba(0, 0, 0, 0.5);
-    overflow: hidden;
-    text-align: center;
-}
-
-.login-seperate::before, .login-seperate::after {
-    background-color: rgba(0, 0, 0, 0.4);
-    content: "";
-    display: inline-block;
-    height: 1px;
-    position: relative;
-    vertical-align: middle;
-    width: 50%;
-}
-
-.login-seperate::before {
-    right: 0.5em;
-    margin-left: -50%;
-}
-
-.login-seperate::after {
-    left: 0.5em;
-    margin-right: -50%;
-}
-
 .login-footer {
     text-align: center;
     font-family: "Roboto", serif;
