@@ -1,0 +1,20 @@
+<%- include("partials/mainNavbar") %> 
+<script>
+    document.title = "Update a Note! | NoteTaker";
+</script>
+
+<section id="update-note" class="update-note-class">
+    <div class="container">
+        <form action="/update" method="post">
+            <div class="mb-3">
+                <label for="noteTitle"><h5>Title</h5></label>
+                <input type="text" name="updateTitleContent" id="noteTitle" class="form-control" value= "<%= title %>" required><br>
+                <label for="noteArea"><h5>Create A Note Here!</h5></label><br>
+                <textarea name="updateNoteContent" id="noteArea" cols="30" rows="10" class="form-control" required><%= content %></textarea><br>
+                <button type="submit" class="btn btn-lg btn-outline-success align-button">Update Note</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<%- include("partials/footer") %> 
