@@ -1208,3 +1208,9 @@ table {
         padding: 1rem 0;
     }
 }
+
+/* For update.ejs file */
+
+#update-note {
+    padding: 7% 0;
+}

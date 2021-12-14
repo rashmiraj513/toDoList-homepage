@@ -174,6 +174,22 @@ app.get("/delete", function(req, res) {
     }
 });
 
+app.get("/update", function(req, res) {
+    if(req.isAuthenticated()) {
+        User.find({username: req.user.username}, function(err, user) {
+            if(err) {
+                console.log(err);
+            } else {
+                user[0].notes.forEach(function(element) {
+                    if(element.id === requestedNotesId) {
+                        res.render("update", {title: element.title, content: element.content});
+                    }
+                });
+            }
+        });
+    }
+});
+
 app.post("/", function(req, res) {
     Mail.findOne({mail: req.body.userEmail}, function(err, foundEmail) {
         if(err) {
@@ -314,7 +330,33 @@ app.post("/create_note", function(req, res) {
     }
 });
 
+app.post("/update", function(req, res) {
+    const updatedTitle = req.body.updateTitleContent;
+    const updatedContent = req.body.updateNoteContent;
+    if(req.isAuthenticated()) {
+        User.find({username: req.user.username}, function(err, user) {
+            if(err) {
+                console.log(err);
+            } else {
+                user[0].notes.forEach(function(element) {
+                    if(element.id === requestedNotesId) {
+                        element.title = updatedTitle;
+                        element.content = updatedContent;
+                        user[0].save(function(err) {
+                            if(err) {
+                                console.log(err);
+                            } else {
+                                res.redirect("/dashboard");
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function() {
-    console.log("Server is started on port 3000.");
+    console.log(`Server is started on port ${PORT}.`);
 });
