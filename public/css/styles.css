@@ -510,7 +510,7 @@ hr {
 .display-3 {
     font-family: "IBM Plex Sans", serif;
     font-weight: 500;
-    font-size: 3rem;
+    font-size: 2.5rem;
     line-height: 1.244;
     text-align: center;
     margin-top: 0;
@@ -569,7 +569,7 @@ hr {
 }
 
 .headlines-2 {
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     color: #FFFFFF;
     padding-bottom: 5%;
 }
