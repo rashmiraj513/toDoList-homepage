@@ -6,6 +6,47 @@ const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const findOrCreate = require("mongoose-findorcreate");
+const nodemailer = require("nodemailer");
+const { google } = require("googleapis");
+
+const CLIENT_ID = process.env.CLIENT_ID_GOOGLE;
+const CLIENT_SECRET = process.env.CLIENT_SECRET_GOOGLE;
+const REFRESH_TOKEN = process.env.REFRESH_TOKEN_GOOGLE;
+const REDIRECT_URI = "https://developers.google.com/oauthplayground";
+
+const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN});
+
+async function sendMail() {
+    try {
+        const accessToken = await oAuth2Client.getAccessToken();
+        const transport = nodemailer.createTransport ({
+            service: "gmail",
+            auth: {
+                type: "OAuth2",
+                user: "rashmiraj7877@gmail.com",
+                clientId: CLIENT_ID,
+                clientSecret: CLIENT_SECRET,
+                refreshToken: REFRESH_TOKEN,
+                accessToken: accessToken
+            }
+        });
+
+        const mailOptions = {
+            from: "NoteTaker <rashmiraj7877@gmail.com>",
+            to: forgotEmail,
+            subject: "Forgot Password for NoteTaker",
+            text: "Forgot Password",
+            html: '<div style="padding:3% 8%"><table style="width:100%;"><h1>NoteTaker</h1><h2 style="color:#00a82d;">Change Your Password</h2><h3>We have received a password change request for your NoteTaker account.</h3><h3 style="line-height:1.7rem;">If you did not ask to change your password, then you can ignore this email and your password will not be changed. The link below will remain active for 1 hours.</h3><a href="https://glacial-refuge-24169.herokuapp.com/change_password"><button style="background-color:#00a82d;border:1px solid #00a82d;border-radius:4px;color:#ffffff;display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:bold;line-height:35px;text-align:center;text-decoration:none;padding:0 25px 0 25px;letter-spacing:.5px;min-width:150px;cursor:pointer">Reset Password</button></a></table></div>'
+        };
+        const result = await transport.sendMail(mailOptions);
+        return result;
+    } catch (err) {
+        return err;
+    }
+}
+
+let forgotEmail = "";
 
 // exported modules...
 const db = require("./connection/config");          // dbConnection Module
@@ -166,6 +207,10 @@ app.get("/update", function(req, res) {
     }
 });
 
+app.get("/change_password", function(req, res) {
+    res.render("change_password");
+});
+
 app.post("/", function(req, res) {
     Mail.findOne({mail: req.body.userEmail}, function(err, foundEmail) {
         if(err) {
@@ -274,7 +319,9 @@ app.post("/forgot_password", function(req, res) {
             console.log(err);
         } else {
             if(foundMail) {
-                res.send("Mail found!");
+                forgotEmail = foundMail.username;
+                sendMail().then(result => console.log(result))
+                .catch(err => console.log(err));
             } else {
                 res.send("Not registered yet! Please enter registered Mail!");
             }
@@ -329,6 +376,24 @@ app.post("/update", function(req, res) {
             }
         });
     }
+});
+
+app.post("/change_password", function(req, res) {
+    const newPassword = req.body.resetPassword;
+    User.find({username: forgotEmail}, function(err, user) {
+        if(err) {
+            console.log(err);
+        } else {
+            console.log(newPassword);
+            user[0].setPassword(newPassword, function(err, user) {
+                if(err) {
+                    console.log(err);
+                } else {
+                    res.redirect("/login");
+                }
+            });
+        }
+    })
 });
 
 const PORT = process.env.PORT || 3000;

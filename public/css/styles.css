@@ -1181,3 +1181,15 @@ table {
 #update-note {
     padding: 7% 0;
 }
+
+/* For change_password.ejs file */
+
+#change-password {
+    padding-top: 0;
+}
+
+@media (max-width: 550px) {
+    #change-password {
+        padding-top: 22%;
+    }
+}
