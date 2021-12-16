@@ -38,6 +38,7 @@ async function sendMail() {
             subject: "Forgot Password for NoteTaker",
             text: "Forgot Password",
             html: '<div style="padding:3% 8%"><table style="width:100%;"><h1>NoteTaker</h1><h2 style="color:#00a82d;">Change Your Password</h2><h3>We have received a password change request for your NoteTaker account.</h3><h3 style="line-height:1.7rem;">If you did not ask to change your password, then you can ignore this email and your password will not be changed. The link below will remain active for 1 hours.</h3><a href="https://glacial-refuge-24169.herokuapp.com/change_password"><button style="background-color:#00a82d;border:1px solid #00a82d;border-radius:4px;color:#ffffff;display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:bold;line-height:35px;text-align:center;text-decoration:none;padding:0 25px 0 25px;letter-spacing:.5px;min-width:150px;cursor:pointer">Reset Password</button></a></table></div>'
+            // html: '<div style="padding:3% 8%"><table style="width:100%;"><h1>NoteTaker</h1><h2 style="color:#00a82d;">Change Your Password</h2><h3>We have received a password change request for your NoteTaker account.</h3><h3 style="line-height:1.7rem;">If you did not ask to change your password, then you can ignore this email and your password will not be changed. The link below will remain active for 1 hours.</h3><a href="http://localhost:3000/change_password"><button style="background-color:#00a82d;border:1px solid #00a82d;border-radius:4px;color:#ffffff;display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:bold;line-height:35px;text-align:center;text-decoration:none;padding:0 25px 0 25px;letter-spacing:.5px;min-width:150px;cursor:pointer">Reset Password</button></a></table></div>'
         };
         const result = await transport.sendMail(mailOptions);
         return result;
@@ -92,6 +93,7 @@ passport.deserializeUser(function(id, done) {
 let successMessage = "";
 let messages = "";
 let requestedNotesId = "";
+let forgotMessage = "";
 
 app.get("/", function(req, res) {
     res.render("home", {message: successMessage});
@@ -102,7 +104,7 @@ app.get("/login", function(req, res) {
 });
 
 app.get("/forgot_password", function(req, res) {
-    res.render("forgot_password");
+    res.render("forgot_password", {errorMessages: messages});
 })
 
 app.get("/privacy_policy", function(req, res) {
@@ -131,7 +133,6 @@ app.get("/dashboard", function(req, res) {
                 res.render("dashboard", {allNote: allNotes});
             }
         });
-        // res.render("dashboard");
     } else {
         res.redirect("/login");
     }
@@ -320,10 +321,15 @@ app.post("/forgot_password", function(req, res) {
         } else {
             if(foundMail) {
                 forgotEmail = foundMail.username;
-                sendMail().then(result => console.log(result))
+                sendMail().then(result => {
+                    console.log(result);
+                    forgotMessage = "Mail Sent!";
+                    res.render("forgot_password", {errorMessages: forgotMessage});
+                })
                 .catch(err => console.log(err));
             } else {
-                res.send("Not registered yet! Please enter registered Mail!");
+                forgotMessage = "Not registered yet! Please enter registered Mail!";
+                res.render("forgot_password", {errorMessages: forgotMessage});
             }
         }
     });
@@ -384,16 +390,21 @@ app.post("/change_password", function(req, res) {
         if(err) {
             console.log(err);
         } else {
-            console.log(newPassword);
             user[0].setPassword(newPassword, function(err, user) {
                 if(err) {
                     console.log(err);
                 } else {
-                    res.redirect("/login");
+                    user.save(function(err) {
+                        if(err) {
+                            console.log(err);
+                        } else {
+                            res.redirect("/login");
+                        }
+                    });
                 }
             });
         }
-    })
+    });
 });
 
 const PORT = process.env.PORT || 3000;
