@@ -1,0 +1,27 @@
+<%- include("partials/mainNavbar") %> 
+<script>
+    document.title = "Welcome to Dashboard! | NoteTaker";
+</script>
+
+<section id="note-section" class="note-section">
+    <div class="container">
+        <div class="row">
+            <% allNote.forEach(function(notes) { %>
+                <div class="col-12 col-md-6 col-lg-4 notes-body">
+                    <a href="/notes/<%= notes._id %>">
+                        <div class="single-note">
+                            <h3 id="notes-title"><%= notes.title  %> </h3>
+                            <% if (notes.content.length > 50) { %>
+                            <p id="notes-text"><%= notes.content.substring(0, 50) + "..." %> </p>
+                            <% } else { %>
+                            <p id="notes-text"><%= notes.content %> </p> 
+                            <% } %>
+                        </div>
+                    </a>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</section>
+
+<%- include("partials/footer") %> 

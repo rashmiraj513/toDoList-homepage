@@ -1,0 +1,28 @@
+<%- include("partials/mainNavbar") %>
+<script>
+    document.title = "Full Notes | NoteTaker";
+</script>
+<section id="notes-display" class="notes-display-class">
+    <div class="container">
+        <table>
+            <tr>
+                <th><h1 class="display-title"><%= title %></h1></th>
+                <th class="delete-row">
+                    <div class="delete-note">
+                        <a href="/delete"><h1><i class="fas fa-trash-alt icon-size"></i></h1></i></a>
+                    </div>
+                </th>
+                <th class="delete-row">
+                    <div class="update-note">
+                        <a href="/update"><h1><i class="fas fa-pen icon-size"></i></h1></i></a>
+                    </div>
+                </th>
+            </tr>
+        </table>
+        <p id="linkCheck" class="display-content"><%- content %></p>
+    </div>
+</section>
+
+<script src="../main.js" type="text/javascript"></script>
+
+<%- include("partials/footer") %> 
