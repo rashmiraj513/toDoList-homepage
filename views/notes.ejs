@@ -2,8 +2,10 @@
 <script>
     document.title = "Full Notes | NoteTaker";
 </script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <section id="notes-display" class="notes-display-class">
     <div class="container">
+        <div id="google_translate_element"></div>
         <table>
             <tr>
                 <th><h1 class="display-title"><%= title %></h1></th>
@@ -19,8 +21,10 @@
                 </th>
             </tr>
         </table>
-        <p class="display-content"><%= content %></p>
+        <p id="linkCheck" class="display-content"><%- content %></p>
     </div>
 </section>
+
+<script src="../js/main.js" type="text/javascript"></script>
 
 <%- include("partials/footer") %> 

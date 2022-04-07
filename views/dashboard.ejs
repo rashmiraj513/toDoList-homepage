@@ -11,7 +11,11 @@
                     <a href="/notes/<%= notes._id %>">
                         <div class="single-note">
                             <h3 id="notes-title"><%= notes.title  %> </h3>
+                            <% if (notes.content.length > 50) { %>
                             <p id="notes-text"><%= notes.content.substring(0, 50) + "..." %> </p>
+                            <% } else { %>
+                            <p id="notes-text"><%= notes.content %> </p> 
+                            <% } %>
                         </div>
                     </a>
                 </div>
@@ -20,4 +24,4 @@
     </div>
 </section>
 
-<%- include("partials/footer") %> 
+<%- include("partials/footer") %>
