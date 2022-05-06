@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const url = require("url");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const session = require("express-session");
@@ -121,7 +122,13 @@ app.get("/signup", function(req, res) {
 
 app.get("/about", function(req, res) {
     res.render("about");
-})
+});
+
+app.get("/search", function(req, res) {
+    if(req.isAuthenticated()) {
+        res.render("search");
+    }
+});
 
 app.get("/dashboard", function(req, res) {
     if(req.isAuthenticated()) {
@@ -129,8 +136,24 @@ app.get("/dashboard", function(req, res) {
             if(err) {
                 console.log(err);
             } else {
-                const allNotes = user[0].notes;
-                res.render("dashboard", {allNote: allNotes});
+                const allNotes = user[0].notes.reverse();
+                let allNoteDate = [];
+                allNotes.forEach(function(element) {
+                    allNoteDate.push(element.noteDate);
+                    
+                });
+                let allNoteSet = new Set(allNoteDate);
+                let dayNote = [];
+                allNoteSet.forEach(function(date) {
+                    let sameDayNotes = [];
+                    allNotes.forEach(function(subject) {
+                        if(subject.noteDate === date) {
+                            sameDayNotes.push(subject);
+                        }
+                    });
+                    dayNote.push({date, sameDayNotes});
+                });
+                res.render("dashboard", { allNote: dayNote });
             }
         });
     } else {
@@ -170,7 +193,6 @@ app.get("/notes/:notesID", function(req, res) {
 
 app.get("/delete", function(req, res) {
     if(req.isAuthenticated()) {
-        // console.log(req.user.password);
         User.find({username: req.user.username}, function(err, user) {
             if(err) {
                 console.log(err);
@@ -210,6 +232,13 @@ app.get("/update", function(req, res) {
 
 app.get("/change_password", function(req, res) {
     res.render("change_password");
+});
+
+let keywordNotes;
+app.get("/searchedNotes", function(req, res) {
+    if(req.isAuthenticated()) {
+        res.render("searchedNotes", { allNotes: keywordNotes.reverse() });
+    }
 });
 
 app.post("/", function(req, res) {
@@ -338,9 +367,16 @@ app.post("/forgot_password", function(req, res) {
 app.post("/create_note", function(req, res) {
     const title = req.body.titleContent;
     const content = req.body.noteContent;
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const year = today.getFullYear();
+
+    const newDate = day + '-' + month + '-' + year;
+    // const newDate = "4-5-2022";
 
     if(req.isAuthenticated()) {
-        const newNote = { title: title, content: content };
+        const newNote = { title: title, content: content, noteDate: newDate };
         User.find({username: req.user.username}, function(err, user) {
             if(err) {
                 console.log(err);
@@ -405,6 +441,26 @@ app.post("/change_password", function(req, res) {
             });
         }
     });
+});
+
+app.post("/search", function(req, res) {
+    const keyword = req.body.query;
+    if(req.isAuthenticated()) {
+        User.find({username: req.user.username}, function(err, user) {
+            if(err) {
+                console.log(err);
+            } else {
+                const allNotes = user[0].notes;
+                keywordNotes = [];
+                allNotes.forEach(function(element) {
+                    if(element.title.includes(keyword) || element.content.includes(keyword) || element.noteDate.includes(keyword)) {
+                        keywordNotes.push(element);
+                    }
+                });
+                res.redirect("/searchedNotes");
+            }
+        });
+    }
 });
 
 const PORT = process.env.PORT || 3000;

@@ -972,14 +972,18 @@ hr {
 #note-section {
     background-color: #1a1a1a;
     padding: 6% 0;
-    height: 100vh;
+    min-height: 100vh;
 }
 
-#note-section .single-note {
+.note-layout {
+    display: inline-block;
+}
+
+.single-note {
     background-color: #3e3a3a;
     padding: 2%;
     margin: 2%;
-    height: 25vh;
+    min-height: 25vh;
     border-radius: 15px;
 }
 
@@ -1021,7 +1025,7 @@ hr {
         min-height: 270vh;
     }
 
-    #note-section .single-note {
+    .single-note {
         height: 35vh;
     }
 }
@@ -1111,7 +1115,7 @@ hr {
         height: 270vh;
     }
 
-    #note-section .single-note {
+    .single-note {
         height: 35vh;
     }
 }
@@ -1192,4 +1196,39 @@ table {
     #change-password {
         padding-top: 22%;
     }
+}
+
+/* For search.ejs file */
+
+#search-note {
+    padding: 7% 0;
+}
+
+#search-note .search-class {
+    width: 30%;
+    display: block;
+    margin: auto;
+}
+
+#search-note .search-class .display-4 {
+    text-align: center;
+    padding-bottom: 3%;
+    font-family: "IBM Plex Sans", serif;
+    font-weight: 500;
+    font-size: 2.2rem;
+    line-height: 1.244;
+}
+
+@media (max-width: 426px) {
+    #search-note .search-class {
+        width: 100%;
+    }
+}
+
+/* For searchedNotes.ejs file */
+
+#searched-notes {
+    padding: 6% 0;
+    background-color: #1a1a1a;
+    min-height: 100vh;
 }

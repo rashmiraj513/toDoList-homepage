@@ -1,0 +1,27 @@
+<%- include("partials/mainNavbar") %> 
+<script>
+    document.title = "Found Notes! | NoteTaker";
+</script>
+
+<section id="searched-notes" class="searched-notes">
+    <div class="container">
+        <div class="row">
+            <% allNotes.forEach(function(singleNote) { %>
+                <div class="col-12 col-md-6 col-lg-4 notes-body">
+                    <a href="/notes/<%= singleNote._id %>">
+                        <div class="single-note">
+                            <h3 id="notes-title"><%= singleNote.title  %> </h3>
+                            <% if (singleNote.content.length > 50) { %>
+                            <p id="notes-text"><%= singleNote.content.substring(0, 50) + "..." %> </p>
+                            <% } else { %>
+                            <p id="notes-text"><%= singleNote.content %> </p> 
+                            <% } %>
+                        </div>
+                    </a>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</section>
+
+<%- include("partials/footer") %>

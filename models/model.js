@@ -7,7 +7,8 @@ const userSchema = new mongoose.Schema({
     password: String,
     notes: [{
         title: String,
-        content: String
+        content: String,
+        noteDate: String
     }],
     googleId: String
 });

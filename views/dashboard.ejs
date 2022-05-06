@@ -5,22 +5,29 @@
 
 <section id="note-section" class="note-section">
     <div class="container">
-        <div class="row">
-            <% allNote.forEach(function(notes) { %>
-                <div class="col-12 col-md-6 col-lg-4 notes-body">
-                    <a href="/notes/<%= notes._id %>">
-                        <div class="single-note">
-                            <h3 id="notes-title"><%= notes.title  %> </h3>
-                            <% if (notes.content.length > 50) { %>
-                            <p id="notes-text"><%= notes.content.substring(0, 50) + "..." %> </p>
-                            <% } else { %>
-                            <p id="notes-text"><%= notes.content %> </p> 
-                            <% } %>
-                        </div>
-                    </a>
+        <% allNote.forEach(function(notes) { %>
+            <div>
+                <h2 style="color: #0ff;"> <%= notes.date %> </h2>
+                <div style="margin-bottom: 2rem;">
+                    <div class="row">
+                        <% notes.sameDayNotes.forEach(function(singleNote) { %>
+                            <div class="col-12 col-md-6 col-lg-4 notes-body">
+                                <a href="/notes/<%= singleNote._id %>">
+                                    <div class="single-note">
+                                        <h3 id="notes-title"><%= singleNote.title  %> </h3>
+                                        <% if (singleNote.content.length > 50) { %>
+                                        <p id="notes-text"><%= singleNote.content.substring(0, 50) + "..." %> </p>
+                                        <% } else { %>
+                                        <p id="notes-text"><%= singleNote.content %> </p> 
+                                        <% } %>
+                                    </div>
+                                </a>
+                            </div>
+                        <% }) %>
+                    </div>
                 </div>
-            <% }); %>
-        </div>
+            </div>
+        <% }); %>
     </div>
 </section>
 
